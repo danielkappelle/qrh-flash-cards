@@ -17,7 +17,7 @@ export default async function Admin() {
         </li>
         {aircraft.map((ac) => (
           <li key={ac.id} className="font-bold">
-            &#9654; {ac.name}
+            <Link href={`/admin/${ac.slug}`}>&#9654; {ac.name}</Link>
           </li>
         ))}
       </ul>
