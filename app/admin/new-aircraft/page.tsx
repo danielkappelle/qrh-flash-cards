@@ -3,6 +3,7 @@
 import { addAircraft } from '@/actions/actions';
 import { BackButton } from '@/ui/back-button';
 import { EndOfPage } from '@/ui/end-of-page';
+import { Title } from '@/ui/title';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -40,7 +41,7 @@ export default function NewAircraft() {
     <>
       <div className="w-1/3 border-8 border-black bg-white p-4">
         <BackButton name="Admin" url="/admin" />
-        <h1 className="text-2xl mb-3">New aircraft</h1>
+        <Title title="New aircraft"></Title>
         <form onSubmit={handleSubmit}>
           <div className="mt-4">
             <label htmlFor="name" className="block">

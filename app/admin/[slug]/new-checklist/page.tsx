@@ -42,7 +42,7 @@ export default function NewChecklist({ params }: { params: { slug: string } }) {
   return (
     <>
       <div className="w-1/3 border-8 border-black bg-white p-4">
-        <BackButton name="Admin" url="/admin" />
+        <BackButton name={params.slug} url={`/admin/${params.slug}`} />
         <Title title="New memory items" />
         <form onSubmit={handleSubmit}>
           <div className="mt-4">

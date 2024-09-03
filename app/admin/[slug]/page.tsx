@@ -14,7 +14,7 @@ export default async function AdminAircraft({
 
   return (
     <div className="w-1/3 border-8 border-black bg-white p-4">
-      <BackButton url="/" name="Home"></BackButton>
+      <BackButton url="/admin" name="Admin"></BackButton>
       <Title title={`Admin: ${aircraft.name}`} />
       <ul>
         <li className="font-bold">
