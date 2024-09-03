@@ -1,0 +1,16 @@
+services:
+  qrh-db:
+    image: bitnami/mysql:8.0.17
+    container_name: qrh-db
+    volumes:
+      - mysql_data:/bitnami/mysql/data
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: qrh
+      MYSQL_USER: qrh
+      MYSQL_PASSWORD: qrh
+    ports:
+      - 3306:3306
+
+volumes:
+  mysql_data:
