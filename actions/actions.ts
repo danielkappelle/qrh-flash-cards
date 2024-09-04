@@ -2,7 +2,7 @@
 import { auth, signIn, signOut } from '@/auth';
 import { db } from '@/db/drizzle';
 import { aircraft, checklist, user } from '@/db/schema';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
