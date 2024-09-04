@@ -62,3 +62,23 @@ export const addChecklist = async (data: {
   revalidatePath(`/admin/${ac.slug}`);
   redirect(`/admin/${ac.slug}`);
 };
+
+export const updateChecklist = async (data: {
+  aircraftSlug: string;
+  checklistSlug: string;
+  name: string;
+  content: string;
+}) => {
+  await db
+    .update(checklist)
+    .set({ content: data.content, name: data.name })
+    .where(eq(checklist.slug, data.checklistSlug));
+  revalidatePath(`/admin/${data.aircraftSlug}`);
+  redirect(`/admin/${data.aircraftSlug}`);
+};
+
+export const deleteChecklist = async (acSlug: string, clSlug: string) => {
+  await db.delete(checklist).where(eq(checklist.slug, clSlug));
+  revalidatePath(`/admin/${acSlug}`);
+  redirect(`/admin/${acSlug}`);
+};

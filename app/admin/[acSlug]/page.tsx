@@ -7,9 +7,9 @@ import Link from 'next/link';
 export default async function AdminAircraft({
   params,
 }: {
-  params: { slug: string };
+  params: { acSlug: string };
 }) {
-  const aircraft = await getAircraftBySlug(params.slug);
+  const aircraft = await getAircraftBySlug(params.acSlug);
   const checklists = await getChecklists(aircraft.id);
 
   return (
@@ -24,7 +24,9 @@ export default async function AdminAircraft({
         </li>
         {checklists.map((cl) => (
           <li key={cl.id} className="font-bold">
-            &#9654; {cl.name}
+            <Link href={`/admin/${aircraft.slug}/${cl.slug}`}>
+              &#9654; {cl.name}
+            </Link>
           </li>
         ))}
       </ul>
