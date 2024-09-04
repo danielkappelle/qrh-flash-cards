@@ -14,10 +14,10 @@ export default async function Aircraft({
   const checklists = await getChecklists(aircraft.id);
 
   return (
-    <div className="w-1/3 border-8 border-black bg-white p-4">
+    <>
       <BackButton url={`/${aircraft.slug}`} name={aircraft.name}></BackButton>
       <Training checklists={checklists} />
       <EndOfPage />
-    </div>
+    </>
   );
 }

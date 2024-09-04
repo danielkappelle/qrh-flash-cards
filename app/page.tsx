@@ -1,4 +1,5 @@
 import { getAircraft } from '@/actions/actions';
+import { ArrowLink } from '@/ui/arrow-link';
 import { ChecklistLine } from '@/ui/checklist-line';
 import { EndOfPage } from '@/ui/end-of-page';
 import { Note } from '@/ui/note';
@@ -11,13 +12,13 @@ export default async function Home() {
   const aircraft = await getAircraft();
 
   return (
-    <div className="w-1/3 border-8 border-black bg-white p-4">
+    <>
       <Title title="Memory Items Trainer" />
       <p>Select aircraft:</p>
       <ul>
         {aircraft.map((ac) => (
           <li key={ac.id} className="font-bold">
-            <Link href={`/${ac.slug}`}>&#9654; {ac.name}</Link>
+            <ArrowLink href={`/${ac.slug}`} text={ac.name} />
           </li>
         ))}
       </ul>
@@ -34,6 +35,6 @@ export default async function Home() {
       />
       <Note type="Credits" content="Created by Daniel Kappelle in 2024." />
       <EndOfPage />
-    </div>
+    </>
   );
 }

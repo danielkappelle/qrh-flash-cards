@@ -1,4 +1,5 @@
 import { getAircraft } from '@/actions/actions';
+import { ArrowLink } from '@/ui/arrow-link';
 import { BackButton } from '@/ui/back-button';
 import { EndOfPage } from '@/ui/end-of-page';
 import { LogoutButton } from '@/ui/logout-button';
@@ -11,16 +12,16 @@ export default async function Admin() {
   const aircraft = await getAircraft();
 
   return (
-    <div className="w-1/3 border-8 border-black bg-white p-4">
+    <>
       <BackButton url="/" name="Home"></BackButton>
       <Title title="Admin page" />
       <ul className="">
         <li className="font-bold">
-          <Link href="admin/new-aircraft">&#9654; New aircraft</Link>
+          <ArrowLink href="admin/new-aircraft" text="New aircraft" />
         </li>
         {aircraft.map((ac) => (
           <li key={ac.id} className="font-bold">
-            <Link href={`/admin/${ac.slug}`}>&#9654; {ac.name}</Link>
+            <ArrowLink href={`/admin/${ac.slug}`} text={ac.name} />
           </li>
         ))}
       </ul>
@@ -31,6 +32,6 @@ export default async function Admin() {
         </li>
       </ul>
       <EndOfPage />
-    </div>
+    </>
   );
 }

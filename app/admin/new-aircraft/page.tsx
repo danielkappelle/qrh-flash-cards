@@ -39,41 +39,39 @@ export default function NewAircraft() {
 
   return (
     <>
-      <div className="w-1/3 border-8 border-black bg-white p-4">
-        <BackButton name="Admin" url="/admin" />
-        <Title title="New aircraft"></Title>
-        <form onSubmit={handleSubmit}>
-          <div className="mt-4">
-            <label htmlFor="name" className="block">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className="block w-full mt-2 p-2 border-2 border-black outline-none"
-              required
-              autoComplete="off"
-            ></input>
-            {touched.name && errors.name && (
-              <p className="italic">Enter a valid name!</p>
-            )}
-          </div>
-          <div className="mt-4">
-            <button
-              type="submit"
-              className="border-2 border-black p-2 cursor-pointer"
-              disabled={!dirty || !isValid}
-            >
-              Add
-            </button>
-          </div>
-        </form>
-        <EndOfPage />
-      </div>
+      <BackButton name="Admin" url="/admin" />
+      <Title title="New aircraft"></Title>
+      <form onSubmit={handleSubmit}>
+        <div className="mt-4">
+          <label htmlFor="name" className="block">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className="block w-full mt-2 p-2 border-2 border-black outline-none"
+            required
+            autoComplete="off"
+          ></input>
+          {touched.name && errors.name && (
+            <p className="italic">Enter a valid name!</p>
+          )}
+        </div>
+        <div className="mt-4">
+          <button
+            type="submit"
+            className="border-2 border-black p-2 cursor-pointer"
+            disabled={!dirty || !isValid}
+          >
+            Add
+          </button>
+        </div>
+      </form>
+      <EndOfPage />
     </>
   );
 }

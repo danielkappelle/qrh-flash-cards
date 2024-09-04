@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "docker:build": "docker build -t $DOCKER_IMAGE_HOST/qrh-flash-cards:$npm_package_version .",
+    "docker:push": "docker push $DOCKER_IMAGE_HOST/qrh-flash-cards:$npm_package_version"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -1,4 +1,5 @@
 import { getAircraftBySlug, getChecklists } from '@/actions/actions';
+import { ArrowLink } from '@/ui/arrow-link';
 import { BackButton } from '@/ui/back-button';
 import { EndOfPage } from '@/ui/end-of-page';
 import { Title } from '@/ui/title';
@@ -15,12 +16,12 @@ export default async function Aircraft({
   const checklists = await getChecklists(aircraft.id);
 
   return (
-    <div className="w-1/3 border-8 border-black bg-white p-4">
+    <>
       <BackButton url="/" name="Home"></BackButton>
       <Title title={`${aircraft.name}`} />
       <ul>
         <li className="font-bold">
-          <Link href={`${aircraft.slug}/training`}>&#9654; Start training</Link>
+          <ArrowLink href={`${aircraft.slug}/training`} text="Start training" />
         </li>
       </ul>
       <br />
@@ -28,11 +29,11 @@ export default async function Aircraft({
       <ul>
         {checklists.map((cl) => (
           <li key={cl.id} className="font-bold">
-            <Link href={`/${params.acSlug}/${cl.slug}`}>&#9654; {cl.name}</Link>
+            <ArrowLink href={`/${params.acSlug}/${cl.slug}`} text={cl.name} />
           </li>
         ))}
       </ul>
       <EndOfPage />
-    </div>
+    </>
   );
 }

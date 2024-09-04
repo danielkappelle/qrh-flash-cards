@@ -50,7 +50,7 @@ export default function LoginPage() {
   } = formik;
 
   return (
-    <div className="w-1/3 border-8 border-black bg-white p-4">
+    <>
       <Title title="Login" />
       <form onSubmit={handleSubmit}>
         <div className="mt-4">
@@ -103,6 +103,6 @@ export default function LoginPage() {
         <Note type="Error" content="Invalid credentials" />
       </div>
       <EndOfPage />
-    </div>
+    </>
   );
 }
