@@ -1,5 +1,6 @@
 import { getAircraft } from '@/actions/actions';
 import { EndOfPage } from '@/ui/end-of-page';
+import { Note } from '@/ui/note';
 import { Title } from '@/ui/title';
 import Link from 'next/link';
 
@@ -18,25 +19,18 @@ export default async function Home() {
         ))}
       </ul>
 
-      <div className="border border-black mt-3 p-1 text-sm">
-        <h2 className="font-bold">Note</h2>
-        <p>
-          This trainer can help to practice memory items using (digital) flash
+      <Note
+        type="Note"
+        content="This trainer can help to practice memory items using (digital) flash
           cards. Select the aircraft of choice to start training. Note that the
-          memory items are based on the KLMFA QRH.
-        </p>
-      </div>
-      <div className="border border-black mt-3 p-1 text-sm">
-        <h2 className="font-bold">Caution</h2>
-        <p>
-          No guarantuees are made that the memory items are correct and
-          up-to-date. Please check to make sure.
-        </p>
-      </div>
-      <div className="border border-black mt-3 p-1 text-sm">
-        <h2 className="font-bold">Credits</h2>
-        <p>Created by Daniel Kappelle in 2024.</p>
-      </div>
+          memory items are based on the KLMFA QRH."
+      />
+      <Note
+        type="Caution"
+        content="No guarantuees are made that the memory items are correct and
+          up-to-date. Please check to make sure."
+      />
+      <Note type="Credits" content="Created by Daniel Kappelle in 2024." />
 
       <EndOfPage />
     </div>

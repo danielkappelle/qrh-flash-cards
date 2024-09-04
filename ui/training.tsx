@@ -2,6 +2,7 @@
 import { AircraftSelect, ChecklistSelect } from '@/db/schema';
 import { useState } from 'react';
 import { Title } from './title';
+import { RenderChecklist } from './render-checklist';
 
 function getRandom(N: number) {
   return Math.floor(Math.random() * N);
@@ -27,7 +28,7 @@ export function Training({
     <>
       <Title title={checklists[idxState].name} />
       <p className={showState ? '' : 'hidden'}>
-        {checklists[idxState].content}
+        <RenderChecklist checklist={checklists[idxState].content!} />
       </p>
       <div className="flex justify-center my-10">
         <button
