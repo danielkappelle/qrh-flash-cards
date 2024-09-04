@@ -71,7 +71,7 @@ export const addChecklist = async (data: {
       .from(aircraft)
       .where(eq(aircraft.slug, data.aircraftSlug))
   )[0];
-  const slug = slugify(data.name);
+  const slug = `${data.aircraftSlug}-${slugify(data.name)}`;
   await getDb().insert(checklist).values({
     name: data.name,
     slug,
