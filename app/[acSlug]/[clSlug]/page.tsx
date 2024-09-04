@@ -1,13 +1,7 @@
-import {
-  getAircraftBySlug,
-  getChecklistBySlug,
-  getChecklists,
-} from '@/actions/actions';
+import { getAircraftBySlug, getChecklistBySlug } from '@/actions/actions';
 import { BackButton } from '@/ui/back-button';
-import { EndOfPage } from '@/ui/end-of-page';
 import { RenderChecklist } from '@/ui/render-checklist';
 import { Title } from '@/ui/title';
-import Link from 'next/link';
 
 export default async function Checklist({
   params,

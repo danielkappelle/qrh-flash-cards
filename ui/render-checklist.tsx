@@ -1,18 +1,17 @@
+import React from 'react';
 import { ChecklistLine } from './checklist-line';
 import { Note } from './note';
 
 export function RenderChecklist({ checklist }: { checklist: string }) {
-  const parseBlock = (s: string) => {
-    if (!s.length) {
-      return [<br />];
-    }
-
-    const regSplit = /(\[\w+\].*?\[\/\w+\])/g;
+  const parseChecklist = (s: string) => {
+    const regSplit = /(\n|\[\w+\].*?\[\/\w+\])/g;
     const regReplace = /\[(\w+)\](.*?)\[\/\w+\]/;
 
     const parts = s.split(regSplit);
 
     const result = parts.map((part) => {
+      if (part === '\n') return <br />;
+
       const match = part.match(regReplace);
       if (match) {
         const type = match[1];
@@ -24,7 +23,7 @@ export function RenderChecklist({ checklist }: { checklist: string }) {
           case 'note':
             return <Note type="Note" content={content} />;
           case 'check':
-            const [left, right] = content.split('TAB');
+            const [left, right] = content.split('<TAB>');
             return <ChecklistLine left={left} right={right} />;
           default:
             return content;
@@ -38,6 +37,10 @@ export function RenderChecklist({ checklist }: { checklist: string }) {
   };
 
   return (
-    <>{checklist.split('\n').map((cl, idx) => parseBlock(cl).map((a) => a))}</>
+    <>
+      {parseChecklist(checklist).map((a, idx) => (
+        <React.Fragment key={idx}>{a}</React.Fragment>
+      ))}
+    </>
   );
 }

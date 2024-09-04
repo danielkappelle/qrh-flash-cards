@@ -8,6 +8,7 @@ import { ChecklistSelect } from '@/db/schema';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as yup from 'yup';
+import { Note } from './note';
 
 export function NewChecklistForm({
   acSlug,
@@ -104,6 +105,10 @@ export function NewChecklistForm({
             <p className="italic">Enter valid content!</p>
           )}
         </div>
+        <Note
+          type="Note"
+          content="You can use [u]underlines[/u], [note]note blocks[/note] and [check]1.checklist <TAB> ITEMS[/check]"
+        />
         <div className="mt-4">
           <button
             type="submit"

@@ -1,20 +1,14 @@
 'use client';
 import { AircraftSelect, ChecklistSelect } from '@/db/schema';
 import { useState } from 'react';
-import { Title } from './title';
 import { RenderChecklist } from './render-checklist';
+import { Title } from './title';
 
 function getRandom(N: number) {
   return Math.floor(Math.random() * N);
 }
 
-export function Training({
-  aircraft,
-  checklists,
-}: {
-  aircraft: AircraftSelect;
-  checklists: ChecklistSelect[];
-}) {
+export function Training({ checklists }: { checklists: ChecklistSelect[] }) {
   const N = checklists.length;
   const [idxState, setIdxState] = useState(getRandom(N));
   const [showState, setShowState] = useState(false);
@@ -27,9 +21,9 @@ export function Training({
   return (
     <>
       <Title title={checklists[idxState].name} />
-      <p className={showState ? '' : 'hidden'}>
+      <div className={showState ? '' : 'hidden'}>
         <RenderChecklist checklist={checklists[idxState].content!} />
-      </p>
+      </div>
       <div className="flex justify-center my-10">
         <button
           type="submit"
