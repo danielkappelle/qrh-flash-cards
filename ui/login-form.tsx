@@ -11,7 +11,8 @@ import * as yup from 'yup';
 export default function LoginPage() {
   const router = useRouter();
   const params = useSearchParams();
-  const redirectUrl = params.get('callbackUrl') || '/admin';
+  const redirectUrl =
+    params.get('callbackUrl')?.replace(/^.*\/\/[^\/]+/, '') || '/admin';
   const [incorrectState, setIncorrectState] = useState(false);
 
   const schema = yup.object().shape({
