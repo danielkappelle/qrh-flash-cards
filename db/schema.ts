@@ -1,35 +1,35 @@
-import { relations } from "drizzle-orm";
+import { InferSelectModel, relations } from 'drizzle-orm';
 import {
   text,
   boolean,
   mysqlTable,
   bigint,
   varchar,
-} from "drizzle-orm/mysql-core";
+} from 'drizzle-orm/mysql-core';
 
-export const aircraft = mysqlTable("aircraft", {
-  id: bigint("id", { mode: "number", unsigned: true })
+export const aircraft = mysqlTable('aircraft', {
+  id: bigint('id', { mode: 'number', unsigned: true })
     .autoincrement()
     .primaryKey(),
-  slug: varchar("slug", { length: 256 }).unique().notNull(),
-  name: varchar("name", { length: 256 }).notNull(),
+  slug: varchar('slug', { length: 256 }).unique().notNull(),
+  name: varchar('name', { length: 256 }).notNull(),
 });
 
 export const aircraftRelations = relations(aircraft, ({ many }) => ({
   checklists: many(checklist),
 }));
 
-export const checklist = mysqlTable("checklist", {
-  id: bigint("id", { mode: "number", unsigned: true })
+export const checklist = mysqlTable('checklist', {
+  id: bigint('id', { mode: 'number', unsigned: true })
     .autoincrement()
     .primaryKey(),
-  slug: varchar("slug", { length: 256 }).unique().notNull(),
-  aircraftId: bigint("aircraft_id", {
-    mode: "number",
+  slug: varchar('slug', { length: 256 }).unique().notNull(),
+  aircraftId: bigint('aircraft_id', {
+    mode: 'number',
     unsigned: true,
   }).notNull(),
-  name: varchar("name", { length: 256 }).notNull(),
-  content: varchar("content", { length: 2000 }),
+  name: varchar('name', { length: 256 }).notNull(),
+  content: varchar('content', { length: 2000 }),
 });
 
 export const checklistRelations = relations(checklist, ({ one }) => ({
@@ -38,3 +38,6 @@ export const checklistRelations = relations(checklist, ({ one }) => ({
     references: [aircraft.id],
   }),
 }));
+
+export type AircraftSelect = InferSelectModel<typeof aircraft>;
+export type ChecklistSelect = InferSelectModel<typeof checklist>;

@@ -1,5 +1,7 @@
 import { getAircraft } from '@/actions/actions';
+import { EndOfPage } from '@/ui/end-of-page';
 import { Title } from '@/ui/title';
+import Link from 'next/link';
 
 export default async function Home() {
   const aircraft = await getAircraft();
@@ -11,7 +13,7 @@ export default async function Home() {
       <ul>
         {aircraft.map((ac) => (
           <li key={ac.id} className="font-bold">
-            &#9654; {ac.name}
+            <Link href={`/${ac.slug}`}>&#9654; {ac.name}</Link>
           </li>
         ))}
       </ul>
@@ -35,6 +37,8 @@ export default async function Home() {
         <h2 className="font-bold">Credits</h2>
         <p>Created by Daniel Kappelle in 2024.</p>
       </div>
+
+      <EndOfPage />
     </div>
   );
 }

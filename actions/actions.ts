@@ -29,6 +29,14 @@ export const getChecklists = async (aircraftId?: number) => {
   }
 };
 
+export const getChecklistBySlug = async (slug: string) => {
+  const data = await db
+    .select()
+    .from(checklist)
+    .where(eq(checklist.slug, slug));
+  return data[0];
+};
+
 export const addAircraft = async (data: { name: string }) => {
   const slug = slugify(data.name);
   await db.insert(aircraft).values({ name: data.name, slug });
