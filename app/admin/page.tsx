@@ -1,6 +1,7 @@
 import { getAircraft } from '@/actions/actions';
 import { BackButton } from '@/ui/back-button';
 import { EndOfPage } from '@/ui/end-of-page';
+import { LogoutButton } from '@/ui/logout-button';
 import { Title } from '@/ui/title';
 import Link from 'next/link';
 
@@ -20,6 +21,12 @@ export default async function Admin() {
             <Link href={`/admin/${ac.slug}`}>&#9654; {ac.name}</Link>
           </li>
         ))}
+      </ul>
+      <br />
+      <ul>
+        <li className="font-bold">
+          <LogoutButton />
+        </li>
       </ul>
       <EndOfPage />
     </div>

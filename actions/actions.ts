@@ -1,10 +1,21 @@
 'use server';
-import { eq, not } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
+import { auth, signIn, signOut } from '@/auth';
 import { db } from '@/db/drizzle';
-import { aircraft, checklist } from '@/db/schema';
-import slugify from 'slugify';
+import { aircraft, checklist, user } from '@/db/schema';
+import * as bcrypt from 'bcrypt';
+import { eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import slugify from 'slugify';
+
+const checkAuth = async () => {
+  const session = await auth();
+  if (!session) {
+    redirect('/');
+    return false;
+  }
+  return true;
+};
 
 export const getAircraft = async () => {
   const data = await db.select().from(aircraft);
@@ -38,6 +49,7 @@ export const getChecklistBySlug = async (slug: string) => {
 };
 
 export const addAircraft = async (data: { name: string }) => {
+  if (!(await checkAuth())) return;
   const slug = slugify(data.name);
   await db.insert(aircraft).values({ name: data.name, slug });
   revalidatePath('/admin');
@@ -49,6 +61,7 @@ export const addChecklist = async (data: {
   name: string;
   content: string;
 }) => {
+  if (!(await checkAuth())) return;
   const ac = (
     await db.select().from(aircraft).where(eq(aircraft.slug, data.aircraftSlug))
   )[0];
@@ -69,6 +82,7 @@ export const updateChecklist = async (data: {
   name: string;
   content: string;
 }) => {
+  if (!(await checkAuth())) return;
   await db
     .update(checklist)
     .set({ content: data.content, name: data.name })
@@ -78,7 +92,32 @@ export const updateChecklist = async (data: {
 };
 
 export const deleteChecklist = async (acSlug: string, clSlug: string) => {
+  if (!(await checkAuth())) return;
   await db.delete(checklist).where(eq(checklist.slug, clSlug));
   revalidatePath(`/admin/${acSlug}`);
   redirect(`/admin/${acSlug}`);
+};
+
+export const validateUserLogin = async (email: string, password: string) => {
+  const result = await db.select().from(user).where(eq(user.email, email));
+  if (!result.length) return null;
+
+  //compare password
+  const loginUser = result[0];
+  if (await bcrypt.compare(password, loginUser.password)) {
+    return loginUser;
+  } else {
+    return null;
+  }
+};
+
+export const login = async (credentials: {
+  email: string;
+  password: string;
+}) => {
+  return signIn('credentials', credentials);
+};
+
+export const logout = async () => {
+  await signOut();
 };

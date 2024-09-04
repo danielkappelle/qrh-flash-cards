@@ -1,5 +1,5 @@
 'use client';
-import { AircraftSelect, ChecklistSelect } from '@/db/schema';
+import { ChecklistSelect } from '@/db/schema';
 import { useState } from 'react';
 import { RenderChecklist } from './render-checklist';
 import { Title } from './title';
