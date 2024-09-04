@@ -1,3 +1,4 @@
+import { ChecklistLine } from './checklist-line';
 import { Note } from './note';
 
 export function RenderChecklist({ checklist }: { checklist: string }) {
@@ -22,6 +23,9 @@ export function RenderChecklist({ checklist }: { checklist: string }) {
             return <u>{content}</u>;
           case 'note':
             return <Note type="Note" content={content} />;
+          case 'check':
+            const [left, right] = content.split('TAB');
+            return <ChecklistLine left={left} right={right} />;
           default:
             return content;
         }

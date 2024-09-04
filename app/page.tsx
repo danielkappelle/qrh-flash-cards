@@ -1,4 +1,5 @@
 import { getAircraft } from '@/actions/actions';
+import { ChecklistLine } from '@/ui/checklist-line';
 import { EndOfPage } from '@/ui/end-of-page';
 import { Note } from '@/ui/note';
 import { Title } from '@/ui/title';
@@ -18,7 +19,6 @@ export default async function Home() {
           </li>
         ))}
       </ul>
-
       <Note
         type="Note"
         content="This trainer can help to practice memory items using (digital) flash
@@ -31,7 +31,6 @@ export default async function Home() {
           up-to-date. Please check to make sure."
       />
       <Note type="Credits" content="Created by Daniel Kappelle in 2024." />
-
       <EndOfPage />
     </div>
   );
