@@ -1,9 +1,9 @@
 import { getAircraftBySlug, getChecklists } from '@/actions/actions';
 import { BackButton } from '@/ui/back-button';
 import { EndOfPage } from '@/ui/end-of-page';
-import { Title } from '@/ui/title';
 import { Training } from '@/ui/training';
-import Link from 'next/link';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Aircraft({
   params,

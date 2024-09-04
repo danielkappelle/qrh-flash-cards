@@ -1,6 +1,6 @@
 'use server';
 import { auth, signIn, signOut } from '@/auth';
-import { db } from '@/db/drizzle';
+import { getDb } from '@/db/drizzle';
 import { aircraft, checklist, user } from '@/db/schema';
 import * as bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
@@ -18,30 +18,33 @@ const checkAuth = async () => {
 };
 
 export const getAircraft = async () => {
-  const data = await db.select().from(aircraft);
+  const data = await getDb().select().from(aircraft);
   return data;
 };
 
 export const getAircraftBySlug = async (slug: string) => {
-  const data = await db.select().from(aircraft).where(eq(aircraft.slug, slug));
+  const data = await getDb()
+    .select()
+    .from(aircraft)
+    .where(eq(aircraft.slug, slug));
   return data[0];
 };
 
 export const getChecklists = async (aircraftId?: number) => {
   if (aircraftId) {
-    const data = await db
+    const data = await getDb()
       .select()
       .from(checklist)
       .where(eq(checklist.aircraftId, aircraftId));
     return data;
   } else {
-    const data = await db.select().from(checklist);
+    const data = await getDb().select().from(checklist);
     return data;
   }
 };
 
 export const getChecklistBySlug = async (slug: string) => {
-  const data = await db
+  const data = await getDb()
     .select()
     .from(checklist)
     .where(eq(checklist.slug, slug));
@@ -51,7 +54,7 @@ export const getChecklistBySlug = async (slug: string) => {
 export const addAircraft = async (data: { name: string }) => {
   if (!(await checkAuth())) return;
   const slug = slugify(data.name);
-  await db.insert(aircraft).values({ name: data.name, slug });
+  await getDb().insert(aircraft).values({ name: data.name, slug });
   revalidatePath('/admin');
   redirect('/admin');
 };
@@ -63,10 +66,13 @@ export const addChecklist = async (data: {
 }) => {
   if (!(await checkAuth())) return;
   const ac = (
-    await db.select().from(aircraft).where(eq(aircraft.slug, data.aircraftSlug))
+    await getDb()
+      .select()
+      .from(aircraft)
+      .where(eq(aircraft.slug, data.aircraftSlug))
   )[0];
   const slug = slugify(data.name);
-  await db.insert(checklist).values({
+  await getDb().insert(checklist).values({
     name: data.name,
     slug,
     content: data.content,
@@ -83,7 +89,7 @@ export const updateChecklist = async (data: {
   content: string;
 }) => {
   if (!(await checkAuth())) return;
-  await db
+  await getDb()
     .update(checklist)
     .set({ content: data.content, name: data.name })
     .where(eq(checklist.slug, data.checklistSlug));
@@ -93,13 +99,13 @@ export const updateChecklist = async (data: {
 
 export const deleteChecklist = async (acSlug: string, clSlug: string) => {
   if (!(await checkAuth())) return;
-  await db.delete(checklist).where(eq(checklist.slug, clSlug));
+  await getDb().delete(checklist).where(eq(checklist.slug, clSlug));
   revalidatePath(`/admin/${acSlug}`);
   redirect(`/admin/${acSlug}`);
 };
 
 export const validateUserLogin = async (email: string, password: string) => {
-  const result = await db.select().from(user).where(eq(user.email, email));
+  const result = await getDb().select().from(user).where(eq(user.email, email));
   if (!result.length) return null;
 
   //compare password

@@ -3,6 +3,8 @@ import { BackButton } from '@/ui/back-button';
 import { RenderChecklist } from '@/ui/render-checklist';
 import { Title } from '@/ui/title';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Checklist({
   params,
 }: {

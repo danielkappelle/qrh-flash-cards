@@ -4,6 +4,8 @@ import { EndOfPage } from '@/ui/end-of-page';
 import { Title } from '@/ui/title';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminAircraft({
   params,
 }: {

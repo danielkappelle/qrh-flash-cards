@@ -4,6 +4,8 @@ import { EndOfPage } from '@/ui/end-of-page';
 import { NewChecklistForm } from '@/ui/new-checklist-form';
 import { Title } from '@/ui/title';
 
+export const dynamic = 'force-dynamic';
+
 export default async function EditChecklistPage({
   params,
 }: {

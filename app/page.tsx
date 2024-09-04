@@ -5,6 +5,8 @@ import { Note } from '@/ui/note';
 import { Title } from '@/ui/title';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const aircraft = await getAircraft();
 

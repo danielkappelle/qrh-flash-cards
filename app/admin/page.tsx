@@ -5,6 +5,8 @@ import { LogoutButton } from '@/ui/logout-button';
 import { Title } from '@/ui/title';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Admin() {
   const aircraft = await getAircraft();
 
