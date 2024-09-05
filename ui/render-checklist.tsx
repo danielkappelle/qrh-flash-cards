@@ -22,6 +22,10 @@ export function RenderChecklist({ checklist }: { checklist: string }) {
             return <u>{content}</u>;
           case 'note':
             return <Note type="Note" content={content} />;
+          case 'caution':
+            return <Note type="Caution" content={content} />;
+          case 'warning':
+            return <Note type="Warning" content={content} />;
           case 'check':
             const [left, right] = content.split('<TAB>');
             return <ChecklistLine left={left} right={right} />;
