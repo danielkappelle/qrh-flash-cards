@@ -15,8 +15,7 @@ export default async function Aircraft({
 
   return (
     <>
-      <BackButton url={`/${aircraft.slug}`} name={aircraft.name}></BackButton>
-      <Training checklists={checklists} />
+      <Training aircraft={aircraft} checklists={checklists} />
       <EndOfPage />
     </>
   );
