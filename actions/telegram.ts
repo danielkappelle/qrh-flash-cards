@@ -4,6 +4,10 @@ const sendTelegram = async (msg: string) => {
 
   if (!telegramSecret || !chatId) return;
 
+  if (process.env.NODE_ENV !== 'production') {
+    msg = '[DEV] ' + msg;
+  }
+
   const body = { chat_id: chatId, text: msg };
 
   try {

@@ -16,7 +16,7 @@ export default function RequestTokenForm() {
   const schema = yup.object().shape({
     email: yup
       .string()
-      .matches(/^[a-zA-Z\.]+$/)
+      .matches(/^[a-zA-Z0-9\.\-_]+$/)
       .required(),
   });
 
