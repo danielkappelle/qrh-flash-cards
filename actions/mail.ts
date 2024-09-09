@@ -11,8 +11,6 @@ const sentFrom = new Sender('qrh@danielkappelle.com', 'QRH Flash Cards');
 export const sendTokenMail = async (token: string, email: string) => {
   console.log(`Email: ${email}, token: ${token}`);
   if (process.env.NODE_ENV !== 'production') {
-    // Override email in dev
-    email = process.env.DEV_EMAIL!;
     return;
   }
 

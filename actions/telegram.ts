@@ -1,12 +1,12 @@
 const sendTelegram = async (msg: string) => {
+  if (process.env.NODE_ENV !== 'production') {
+    return;
+  }
+
   const telegramSecret = process.env.TELEGRAM_SECRET;
   const chatId = process.env.TELEGRAM_CHAT_ID;
 
   if (!telegramSecret || !chatId) return;
-
-  if (process.env.NODE_ENV !== 'production') {
-    msg = '[DEV] ' + msg;
-  }
 
   const body = { chat_id: chatId, text: msg };
 
