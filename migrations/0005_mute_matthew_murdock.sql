@@ -1,0 +1,1 @@
+ALTER TABLE `access_token` ADD `created` timestamp DEFAULT CURRENT_TIMESTAMP;

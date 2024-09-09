@@ -1,0 +1,1 @@
+ALTER TABLE `access_token` ADD `email` varchar(255) NOT NULL;

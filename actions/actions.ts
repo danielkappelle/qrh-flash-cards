@@ -1,16 +1,20 @@
 'use server';
 import { auth, signIn, signOut } from '@/auth';
 import { getDb } from '@/db/drizzle';
-import { aircraft, checklist, user } from '@/db/schema';
+import { accessToken, aircraft, checklist, user } from '@/db/schema';
 import * as bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import slugify from 'slugify';
+import { randomBytes } from 'node:crypto';
+import { sendTokenMail } from './mail';
+import { validateRecaptcha } from './captcha';
+import { adminLoginTelegram, requestAccessTokenTelegram } from './telegram';
 
 const checkAuth = async () => {
   const session = await auth();
-  if (!session) {
+  if (!session || session.user?.name !== 'admin') {
     redirect('/');
     return false;
   }
@@ -111,6 +115,7 @@ export const validateUserLogin = async (email: string, password: string) => {
   //compare password
   const loginUser = result[0];
   if (await bcrypt.compare(password, loginUser.password)) {
+    await adminLoginTelegram();
     return loginUser;
   } else {
     return null;
@@ -118,12 +123,49 @@ export const validateUserLogin = async (email: string, password: string) => {
 };
 
 export const login = async (credentials: {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
+  token?: string;
 }) => {
   return signIn('credentials', credentials);
 };
 
 export const logout = async () => {
   await signOut();
+};
+
+export const generateAccessToken = async (
+  emailPrefix: string,
+  reCaptchaToken: string
+) => {
+  // Validate recaptcha
+  if (!validateRecaptcha(reCaptchaToken)) {
+    return redirect('/');
+  }
+
+  const email = `${emailPrefix}@st.klmfa.nl`;
+  const token = randomBytes(10).toString('hex');
+
+  await requestAccessTokenTelegram(email);
+  await getDb().insert(accessToken).values({ email, token });
+
+  await sendTokenMail(token, email);
+  redirect('/validate-token');
+};
+
+export const validateToken = async (token: string) => {
+  const result = await getDb()
+    .select()
+    .from(accessToken)
+    .where(eq(accessToken.token, token));
+
+  if (!result.length || result[0].used) {
+    return null;
+  }
+
+  await getDb()
+    .update(accessToken)
+    .set({ used: true })
+    .where(eq(accessToken.token, token));
+  return true;
 };
