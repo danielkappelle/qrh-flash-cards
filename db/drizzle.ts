@@ -9,7 +9,7 @@ let db: ReturnType<typeof drizzle> | null = null;
 
 export const getDb = () => {
   if (db) return db;
-  const connection = mysql.createConnection(process.env.DB_URL!);
+  const connection = mysql.createPool(process.env.DB_URL!);
   db = drizzle(connection);
   return db;
 };
