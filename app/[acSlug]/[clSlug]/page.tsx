@@ -1,6 +1,7 @@
 import { getAircraftBySlug, getChecklistBySlug } from '@/actions/actions';
 import { BackButton } from '@/ui/back-button';
 import { RenderChecklist } from '@/ui/render-checklist';
+import ScrollAdvisor from '@/ui/scroll-advisor';
 import { Title } from '@/ui/title';
 
 export const dynamic = 'force-dynamic';
@@ -18,6 +19,7 @@ export default async function Checklist({
       <BackButton url={`/${aircraft.slug}`} name={aircraft.name}></BackButton>
       <Title title={`${checklist.name}`} />
       <RenderChecklist checklist={checklist.content!} />
+      <ScrollAdvisor />
     </>
   );
 }

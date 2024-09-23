@@ -5,6 +5,7 @@ import { RenderChecklist } from './render-checklist';
 import { Title } from './title';
 import { usePathname, useRouter } from 'next/navigation';
 import { BackButton } from './back-button';
+import ScrollAdvisor from './scroll-advisor';
 
 // From: https://bost.ocks.org/mike/shuffle/
 function shuffleArray<T>(arr: T[]) {
@@ -91,6 +92,7 @@ function TrainingInner({
           {idxState === N - 1 ? 'Done' : 'Next'}
         </button>
       </div>
+      {showState && <ScrollAdvisor />}
     </>
   );
 }

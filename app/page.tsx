@@ -1,10 +1,8 @@
 import { getAircraft } from '@/actions/actions';
 import { ArrowLink } from '@/ui/arrow-link';
-import { ChecklistLine } from '@/ui/checklist-line';
 import { EndOfPage } from '@/ui/end-of-page';
 import { Note } from '@/ui/note';
 import { Title } from '@/ui/title';
-import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,6 +33,9 @@ export default async function Home() {
       />
       <Note type="Credits" content="Created by Daniel Kappelle in 2024." />
       <EndOfPage />
+      <p className="text-center text-xs text-gray-500">
+        v{process.env.version}
+      </p>
     </>
   );
 }
