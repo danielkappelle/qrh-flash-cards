@@ -20,6 +20,10 @@ export function RenderChecklist({ checklist }: { checklist: string }) {
         switch (type) {
           case 'u':
             return <u>{content}</u>;
+          case 'b':
+            return <strong>{content}</strong>;
+          case 'goto':
+            return <strong>&#9658;&#9658; {content}</strong>;
           case 'note':
             return <Note type="Note" content={content} />;
           case 'caution':
