@@ -49,7 +49,7 @@ export default function ValidateTokenPage() {
       <Title title="Validate token" />
       <Note
         type="Note"
-        content="If you're email address is valid, you should have received an access token. Enter it below."
+        content="If your email address is valid, you should have received an access token. Enter it below."
       ></Note>
       <Note
         type="Caution"

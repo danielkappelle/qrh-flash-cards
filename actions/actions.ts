@@ -144,7 +144,7 @@ export const generateAccessToken = async (
   }
 
   const email = `${emailPrefix}@st.klmfa.nl`;
-  const token = randomBytes(10).toString('hex');
+  const token = randomBytes(3).toString('hex');
 
   await requestAccessTokenTelegram(email);
   await getDb().insert(accessToken).values({ email, token });
