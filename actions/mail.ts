@@ -28,9 +28,5 @@ export const sendTokenMail = async (token: string, email: string) => {
       `Hi, you've requested an access token to use the QRH Flash Cards trainer. Find your access token here: ${token}`
     );
 
-  try {
-    await mailerSend.email.send(emailParams);
-  } catch (e) {
-    console.error(e);
-  }
+  await mailerSend.email.send(emailParams);
 };
