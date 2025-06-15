@@ -135,7 +135,7 @@ export const logout = async () => {
 };
 
 export const generateAccessToken = async (
-  emailPrefix: string,
+  email: string,
   reCaptchaToken: string
 ) => {
   // Validate recaptcha
@@ -143,10 +143,12 @@ export const generateAccessToken = async (
     return redirect('/');
   }
 
-  const email = `${emailPrefix}@st.klmfa.nl`;
+  if (!email.match(/^[a-zA-Z0-9\.\-_]+@(st\.klmfa\.nl|klm\.com)$/)) {
+    throw new Error("Email doesn't end in @st.klmfa.nl or @klm.com");
+  }
   const token = randomBytes(3).toString('hex');
 
-  await requestAccessTokenTelegram(email);
+  await requestAccessTokenTelegram(email, token);
   await getDb().insert(accessToken).values({ email, token });
 
   await sendTokenMail(token, email);

@@ -21,8 +21,11 @@ const sendTelegram = async (msg: string) => {
   }
 };
 
-export const requestAccessTokenTelegram = async (email: string) => {
-  await sendTelegram(`Access token requested for ${email}`);
+export const requestAccessTokenTelegram = async (
+  email: string,
+  token: string
+) => {
+  await sendTelegram(`Access token requested for ${email}: ${token}`);
 };
 
 export const adminLoginTelegram = async () => {
